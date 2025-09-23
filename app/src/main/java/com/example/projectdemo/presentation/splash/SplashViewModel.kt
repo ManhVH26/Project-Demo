@@ -3,10 +3,12 @@ package com.example.projectdemo.presentation.splash
 import androidx.lifecycle.viewModelScope
 import com.example.projectdemo.core.viewmodel.BaseViewModel
 import com.example.projectdemo.domain.repository.RemoteConfigRepository
+import com.example.projectdemo.domain.tracking.UserJourneyTracker
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val remoteConfigRepository: RemoteConfigRepository
+    private val remoteConfigRepository: RemoteConfigRepository,
+    private val userJourneyTracker: UserJourneyTracker,
 ) : BaseViewModel<
         SplashContract.State,
         SplashContract.Intent,
@@ -16,10 +18,15 @@ class SplashViewModel(
     override fun processIntent(intent: SplashContract.Intent) {
         when (intent) {
             SplashContract.Intent.FetchRemote -> fetchRemote()
+            SplashContract.Intent.TrackSplashView -> trackSplashView()
         }
     }
 
-
+    private fun trackSplashView() {
+        viewModelScope.launch {
+            userJourneyTracker.trackSplashView()
+        }
+    }
     private fun fetchRemote() {
         setState { copy(isLoading = true) }
 

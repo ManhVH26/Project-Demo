@@ -11,6 +11,7 @@ interface SplashContract  {
 
     sealed class Intent : MviContract.Intent {
         object FetchRemote : Intent()
+        object TrackSplashView: Intent()
     }
 
     sealed class Effect : MviContract.Effect {

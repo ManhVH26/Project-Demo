@@ -12,9 +12,11 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun SplashScreen(
     viewModel: SplashViewModel = koinViewModel(),
+
     onNavigateToMain: () -> Unit
 ) {
     LaunchedEffect(Unit) {
+        viewModel.processIntent(SplashContract.Intent.TrackSplashView)
         viewModel.processIntent(SplashContract.Intent.FetchRemote)
     }
 
