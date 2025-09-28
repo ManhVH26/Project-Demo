@@ -1,0 +1,41 @@
+CREATE TABLE Post(
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  content TEXT NOT NULL,
+  userId INTEGER NOT NULL,
+  createdAt TEXT NOT NULL,
+  FOREIGN KEY (userId) REFERENCES User(id) ON DELETE CASCADE
+);
+
+selectAll:
+SELECT * FROM Post;
+
+selectById:
+SELECT * FROM Post WHERE id = ?;
+
+selectByUserId:
+SELECT * FROM Post WHERE userId = ?;
+
+selectAllWithUser:
+SELECT Post.id, Post.title, Post.content, Post.userId, Post.createdAt, User.name, User.email
+FROM Post
+INNER JOIN User ON Post.userId = User.id;
+
+selectByIdWithUser:
+SELECT Post.id, Post.title, Post.content, Post.userId, Post.createdAt, User.name, User.email
+FROM Post
+INNER JOIN User ON Post.userId = User.id
+WHERE Post.id = ?;
+
+insertPost:
+INSERT INTO Post(title, content, userId, createdAt)
+VALUES (?, ?, ?, ?);
+
+updatePost:
+UPDATE Post SET title = ?, content = ?, userId = ? WHERE id = ?;
+
+deletePost:
+DELETE FROM Post WHERE id = ?;
+
+deletePostsByUserId:
+DELETE FROM Post WHERE userId = ?;

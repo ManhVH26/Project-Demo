@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.sqldelight)
 }
 
 android {
@@ -49,6 +50,16 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    
+    // SQLDelight dependencies
+    implementation(libs.sqldelight.runtime)
+    implementation(libs.sqldelight.android.driver)
+    implementation(libs.kotlinx.coroutines.core)
+    
+    // Koin dependencies
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,4 +67,12 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName.set("com.example.projectdemo.database")
+        }
+    }
 }
