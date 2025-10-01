@@ -7,20 +7,18 @@ interface MainContract : MviContract<MainContract.State, MainContract.Intent, Ma
     // State
     data class State(
         val isLoading: Boolean = false,
-        val data: String = "",
-        val userText: String = ""
+        val isAuthenticated: Boolean = false,
+        val authError: String? = null
     ) : MviContract.State
 
     // Intent
     sealed class Intent : MviContract.Intent {
-        object LoadData : Intent()
-        data class UpdateText(val text: String) : Intent()
-        object ClearText : Intent()
+        object SilentLogin : Intent()
     }
 
     // Effect
     sealed class Effect : MviContract.Effect {
-        data class ShowMessage(val message: String) : Effect()
-        object NavigateToNext : Effect()
+        data class LoginSuccess(val message: String) : Effect()
+        data class LoginError(val error: String) : Effect()
     }
 }
