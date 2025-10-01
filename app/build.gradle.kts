@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -22,8 +25,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -37,6 +39,17 @@ android {
     buildFeatures {
         compose = true
     }
+}
+
+android.applicationVariants.all {
+    val variant = this
+    val roundBuild = 1
+    val formattedDate = SimpleDateFormat("dd.MM.yyyy").format(Date())
+    variant.outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+        .forEach { output ->
+            output.outputFileName =
+                "ProjectDemo_v${variant.versionName}(${variant.versionCode})_${formattedDate}_r${roundBuild}-${variant.buildType.name}.apk"
+        }
 }
 
 dependencies {
