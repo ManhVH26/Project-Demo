@@ -6,21 +6,24 @@ interface MainContract : MviContract<MainContract.State, MainContract.Intent, Ma
     
     // State
     data class State(
-        val isLoading: Boolean = false,
-        val data: String = "",
-        val userText: String = ""
+        val isLoading: Boolean = false
     ) : MviContract.State
 
     // Intent
     sealed class Intent : MviContract.Intent {
-        object LoadData : Intent()
-        data class UpdateText(val text: String) : Intent()
-        object ClearText : Intent()
+        object NavigateToBannerAds : Intent()
+        object NavigateToInterstitialAds : Intent()
+        object NavigateToRewardedAds : Intent()
+        object NavigateToNativeAds : Intent()
+        object NavigateToAppOpenAds : Intent()
     }
 
     // Effect
     sealed class Effect : MviContract.Effect {
-        data class ShowMessage(val message: String) : Effect()
-        object NavigateToNext : Effect()
+        object NavigateToBannerAds : Effect()
+        object NavigateToInterstitialAds : Effect()
+        object NavigateToRewardedAds : Effect()
+        object NavigateToNativeAds : Effect()
+        object NavigateToAppOpenAds : Effect()
     }
 }

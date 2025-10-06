@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -73,4 +74,13 @@ dependencies {
     // Koin dependencies
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+    
+    // Google Mobile Ads SDK
+    implementation(libs.google.ads)
+    
+    // Navigation Compose
+    implementation(libs.androidx.navigation.compose)
+    
+    // Kotlin Serialization
+    implementation(libs.kotlinx.serialization.json)
 }

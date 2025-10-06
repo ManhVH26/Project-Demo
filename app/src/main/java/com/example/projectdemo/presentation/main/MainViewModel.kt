@@ -6,41 +6,21 @@ class MainViewModel : BaseViewModel<MainContract.State, MainContract.Intent, Mai
     
     override fun processIntent(intent: MainContract.Intent) {
         when (intent) {
-            is MainContract.Intent.LoadData -> {
-                loadData()
+            is MainContract.Intent.NavigateToBannerAds -> {
+                setEffect { MainContract.Effect.NavigateToBannerAds }
             }
-            is MainContract.Intent.UpdateText -> {
-                updateText(intent.text)
+            is MainContract.Intent.NavigateToInterstitialAds -> {
+                setEffect { MainContract.Effect.NavigateToInterstitialAds }
             }
-            is MainContract.Intent.ClearText -> {
-                clearText()
+            is MainContract.Intent.NavigateToRewardedAds -> {
+                setEffect { MainContract.Effect.NavigateToRewardedAds }
             }
-        }
-    }
-    
-    private fun loadData() {
-        setState {
-            copy(isLoading = true)
-        }
-        
-        // Simulate loading data
-        setState {
-            copy(
-                isLoading = false,
-                data = "Data loaded successfully!"
-            )
-        }
-    }
-    
-    private fun updateText(text: String) {
-        setState {
-            copy(userText = text)
-        }
-    }
-    
-    private fun clearText() {
-        setState {
-            copy(userText = "")
+            is MainContract.Intent.NavigateToNativeAds -> {
+                setEffect({ MainContract.Effect.NavigateToNativeAds })
+            }
+            is MainContract.Intent.NavigateToAppOpenAds -> {
+                setEffect { MainContract.Effect.NavigateToAppOpenAds }
+            }
         }
     }
 }
